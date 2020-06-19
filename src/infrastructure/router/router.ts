@@ -1,4 +1,5 @@
 import { Route } from "../../domain/route.ts";
+import Request from "../../domain/request.ts";
 import RouteRegistry from "./route-registry.ts";
 import { RouteAlreadyExistsError } from "../../domain/errors/route-already-exists-error.ts";
 
@@ -13,6 +14,7 @@ export default class Router {
     }
   }
 
-  resolve(route: Route) {
+  resolve(request: Request): Route {
+    return this.routeRegistry.findRouteFromRequest(request);
   }
 }

@@ -11,7 +11,7 @@ test("replies using route handler", async () => {
   });
   app.run();
   // WHEN
-  const actual = await fetch("http://localhost:8080");
+  const actual = await fetch("http://localhost:8080/foo");
   // THEN
   assertEquals(actual, "Hello World !");
 });

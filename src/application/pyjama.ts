@@ -3,6 +3,7 @@ import Router from "../infrastructure/router/router.ts";
 import WebServer from "../infrastructure/server/web-server.ts";
 import { Dependencies } from "../shared/dependencies-container.ts";
 import { Route } from "../domain/route.ts";
+import Request from "../domain/request.ts";
 
 export default class Pyjama {
   private router: Router;
@@ -16,16 +17,20 @@ export default class Pyjama {
 
   async run() {
     this.webServer = this.dependenciesContainer.server(this.options.port);
-    for await (const request of this.webServer) {
-      request.respond({ body: "coucou" });
+    for await (const serverRequest of this.webServer) {
+      const request = new Request(serverRequest.method, serverRequest.url);
+      const result = this.router.resolve(request).handler();
+      serverRequest.respond({ body: result });
     }
   }
 
-  route(route: Route) {
+  route(route: Route): Pyjama {
     this.router.add(route);
+    return this;
   }
 
-  routes(routes: Array<Route>) {
+  routes(routes: Array<Route>): Pyjama {
     routes.forEach((route) => this.router.add(route));
+    return this;
   }
 }
