@@ -1,13 +1,10 @@
-import { ServerRequest } from "../shared/deps.ts";
-import { RequestParams } from "./request-params.ts";
-
 export default class Request {
-  constructor(private method: String, private pathname: String) {
+  constructor(private method: string, private pathname: string) {
   }
-  get httpMethod(): String {
+  get httpMethod(): string {
     return this.method;
   }
-  get path(): String {
+  get path(): string {
     return this.pathname;
   }
 }

@@ -6,4 +6,15 @@ export {
 } from "https://deno.land/std/testing/asserts.ts";
 
 const { test } = Deno;
-export { test };
+
+const integrationTest = (testName: string, testFn: Function) => {
+  return test({
+    name: testName,
+    fn() {
+      testFn;
+    },
+    sanitizeOps: false,
+  });
+};
+
+export { test, integrationTest };

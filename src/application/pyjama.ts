@@ -1,9 +1,9 @@
+import Request from "../domain/request.ts";
+import Route from "../domain/route/route.ts";
 import { Options } from "../domain/options.ts";
 import Router from "../infrastructure/router/router.ts";
 import WebServer from "../infrastructure/server/web-server.ts";
 import { Dependencies } from "../shared/dependencies-container.ts";
-import { Route } from "../domain/route.ts";
-import Request from "../domain/request.ts";
 
 export default class Pyjama {
   private router: Router;
@@ -22,6 +22,10 @@ export default class Pyjama {
       const result = this.router.resolve(request).handler();
       serverRequest.respond({ body: result });
     }
+  }
+
+  stop() {
+    this.webServer?.stop();
   }
 
   route(route: Route): Pyjama {

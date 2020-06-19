@@ -1,17 +1,19 @@
 import Pyjama from "../index.ts";
-import { assertEquals, test } from "./dev-deps.ts";
+import { assertEquals, integrationTest } from "./dev-deps.ts";
+import HTTPMethod from "../src/domain/route/http-method.ts";
 
-test("replies using route handler", async () => {
+integrationTest("replies with corresponding handler", async () => {
   // GIVEN
   const app = Pyjama({ port: 8080 });
+  const expected = "Hello World !";
   app.route({
-    method: "GET",
+    method: HTTPMethod.GET,
     path: "/foo",
-    handler: () => "Hello World !",
+    handler: () => expected,
   });
   app.run();
   // WHEN
-  const actual = await fetch("http://localhost:8080/foo");
+  const actual = await (await fetch("http://localhost:8080/foo")).text();
   // THEN
-  assertEquals(actual, "Hello World !");
+  assertEquals(actual, expected);
 });
