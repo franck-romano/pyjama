@@ -1,3 +1,3 @@
 export interface Options {
-  port: Number;
+  port: number;
 }
