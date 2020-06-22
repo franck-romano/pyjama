@@ -1,6 +1,6 @@
 import Request from "../domain/request.ts";
-import Route from "../domain/route/route.ts";
 import { Options } from "../domain/options.ts";
+import RawRoute from "../domain/route/raw-route.ts";
 import Router from "../infrastructure/router/router.ts";
 import WebServer from "../infrastructure/server/web-server.ts";
 import { Dependencies } from "../shared/dependencies-container.ts";
@@ -28,12 +28,12 @@ export default class Pyjama {
     this.webServer?.stop();
   }
 
-  route(route: Route): Pyjama {
+  route(route: RawRoute): Pyjama {
     this.router.add(route);
     return this;
   }
 
-  routes(routes: Array<Route>): Pyjama {
+  routes(routes: Array<RawRoute>): Pyjama {
     routes.forEach((route) => this.router.add(route));
     return this;
   }

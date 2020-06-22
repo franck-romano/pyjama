@@ -1,9 +1,9 @@
-import Route from "../route/route.ts";
+import RawRoute from "../route/raw-route.ts";
 
 export default class RouteAlreadyExistsError extends Error {
-  constructor(route: Route) {
+  constructor(rawRoute: RawRoute) {
     super(
-      `Route already configured for ${route.method} and path ${route.path}`,
+      `Route already configured for ${rawRoute.httpMethod} and path ${rawRoute.path}`,
     );
   }
 }
