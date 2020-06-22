@@ -2,41 +2,30 @@ import Pyjama from "../index.ts";
 import { assertEquals, integrationTest } from "./dev-deps.ts";
 import HTTPMethod from "../src/domain/route/http-method.ts";
 
-integrationTest(
-  "replies with corresponding handler for a simple route",
-  async () => {
-    // GIVEN
-    const app = Pyjama({ port: 8080 });
-    const expected = "Hello World !";
-    app.route({
-      httpMethod: HTTPMethod.GET,
-      path: "/foo",
-      handler: () => expected,
-    });
-    app.run();
-    // WHEN
-    const actual = await (await fetch("http://localhost:8080/foo")).text();
-    // THEN
-    assertEquals(actual, expected);
-  },
-);
+const routes = [{
+  httpMethod: HTTPMethod.GET,
+  path: "/foo",
+  handler: () => "Hello",
+  expected: "Hello",
+  url: "http://localhost:8080/foo",
+}, {
+  httpMethod: HTTPMethod.GET,
+  path: "/foo/:id",
+  handler: () => "Hello ID",
+  expected: "Hello ID",
+  url: "http://localhost:8080/foo/some_id",
+}];
 
-integrationTest(
-  "replies with corresponding handler for a route with named parameter",
-  async () => {
-    // GIVEN
-    const app = Pyjama({ port: 8080 });
-    const expected = "Hello World !";
-    app.route({
-      httpMethod: HTTPMethod.GET,
-      path: "/foo/:id",
-      handler: () => expected,
-    });
-    app.run();
+const app = Pyjama({ port: 8080 });
+app.routes(routes);
+app.run();
+
+routes.forEach(({ url, expected }) => {
+  integrationTest(`${url} replies ${expected}`, async () => {
     // WHEN
-    const actual = await (await fetch("http://localhost:8080/foo/some-id"))
-      .text();
+    const actual = await (await fetch(url)).text();
     // THEN
     assertEquals(actual, expected);
-  },
-);
+    app.stop();
+  });
+});

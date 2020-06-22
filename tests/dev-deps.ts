@@ -11,7 +11,7 @@ const integrationTest = (testName: string, testFn: Function) => {
   return test({
     name: testName,
     fn() {
-      testFn;
+      testFn();
     },
     sanitizeOps: false,
   });
