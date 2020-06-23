@@ -4,6 +4,7 @@ import RawRoute from "../domain/route/raw-route.ts";
 import Router from "../infrastructure/router/router.ts";
 import WebServer from "../infrastructure/server/web-server.ts";
 import { Dependencies } from "../shared/dependencies-container.ts";
+import { Response } from "../domain/response/response.ts";
 
 export default class Pyjama {
   private router: Router;
@@ -19,10 +20,18 @@ export default class Pyjama {
     this.webServer = this.dependenciesContainer.server(this.options.port);
     for await (const serverRequest of this.webServer) {
       const matchingRoute = this.router.resolve(serverRequest);
-      const request = new Request(serverRequest, matchingRoute);
 
-      const result = request.handler();
-      serverRequest.respond({ body: result });
+      const handlerResult = matchingRoute.handler(
+        new Request(serverRequest, matchingRoute),
+      );
+
+      const response = new Response(handlerResult);
+      serverRequest.respond(
+        {
+          body: response.body,
+          headers: response.headers,
+        },
+      );
     }
   }
 

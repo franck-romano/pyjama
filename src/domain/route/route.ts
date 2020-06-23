@@ -1,6 +1,7 @@
 import RawRoute from "./raw-route.ts";
 import * as Regexp from "./url-regexp.ts";
-import HTTPMethod from "./http-method.ts";
+import HTTPMethod from "../../shared/http-method.ts";
+import { RouteHandler } from "./handler.ts";
 
 export default class Route {
   private pattern: RegExp;
@@ -15,7 +16,7 @@ export default class Route {
   get httpMethod(): HTTPMethod {
     return this.rawRoute.httpMethod;
   }
-  get handler(): Function {
+  get handler(): RouteHandler {
     return this.rawRoute.handler;
   }
 

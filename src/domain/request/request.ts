@@ -1,5 +1,6 @@
 import Route from "../route/route.ts";
 import { ServerRequest } from "../../shared/deps.ts";
+import HTTPMethod from "../../shared/http-method.ts";
 
 export default class Request {
   constructor(
@@ -7,14 +8,10 @@ export default class Request {
     private matchingRoute: Route,
   ) {
   }
-  get httpMethod(): string {
-    return this.rawRequest.method;
+  get httpMethod(): HTTPMethod {
+    return this.rawRequest.method as HTTPMethod;
   }
   get path(): string {
     return this.rawRequest.url;
-  }
-
-  get handler(): Function {
-    return this.matchingRoute.handler;
   }
 }

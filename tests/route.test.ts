@@ -1,6 +1,6 @@
 import Route from "../src/domain/route/route.ts";
 import { test, assertEquals } from "./dev-deps.ts";
-import HTTPMethod from "../src/domain/route/http-method.ts";
+import HTTPMethod from "../src/shared/http-method.ts";
 
 [{
   rawRoute: {

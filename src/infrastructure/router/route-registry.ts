@@ -1,7 +1,7 @@
-import { ServerRequest } from "../../shared/deps.ts";
 import Route from "../../domain/route/route.ts";
-import RouteNotFoundForRequestError from "../../domain/errors/route-not-found-for-request-error.ts";
+import { ServerRequest } from "../../shared/deps.ts";
 import RawRoute from "../../domain/route/raw-route.ts";
+import RouteNotFoundForRequestError from "../../domain/errors/route-not-found-for-request-error.ts";
 
 export default class RouteRegistry extends Array<Route> {
   constructor() {

@@ -1,6 +1,7 @@
 import Pyjama from "../index.ts";
+import HTTPMethod from "../src/shared/http-method.ts";
 import { assertEquals, integrationTest } from "./dev-deps.ts";
-import HTTPMethod from "../src/domain/route/http-method.ts";
+import Request from "../src/domain/request/request.ts";
 
 const routes = [{
   httpMethod: HTTPMethod.GET,
@@ -11,8 +12,8 @@ const routes = [{
 }, {
   httpMethod: HTTPMethod.GET,
   path: "/foo/:id",
-  handler: () => "Hello ID",
-  expected: "Hello ID",
+  handler: (req: Request) => `Hello from ${req.httpMethod} ${req.path}`,
+  expected: "Hello from GET /foo/some_id",
   url: "http://localhost:8080/foo/some_id",
 }];
 
@@ -23,7 +24,7 @@ app.run();
 routes.forEach(({ url, expected }) => {
   integrationTest(`${url} replies ${expected}`, async () => {
     // WHEN
-    const actual = await (await fetch(url)).text();
+    const actual = await (await fetch(url)).json();
     // THEN
     assertEquals(actual, expected);
     app.stop();
