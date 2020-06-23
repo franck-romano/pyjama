@@ -31,7 +31,7 @@ export default class Route {
         Regexp.NAMED_PARAM_REGEXP,
         (match: string, optional: boolean) => optional ? match : "([^/?]+)",
       )
-      .replace(Regexp.SPLAT_PARAM, () => "([^?]*?)");
+      .replace(Regexp.SPLAT_PARAM_REGEXP, () => "([^?]*?)");
 
     return new RegExp(`^${pattern}(?:\\?([\\s\\S]*))?$`);
   }

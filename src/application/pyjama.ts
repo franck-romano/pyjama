@@ -1,5 +1,5 @@
-import Request from "../domain/request.ts";
 import { Options } from "../domain/options.ts";
+import Request from "../domain/request/request.ts";
 import RawRoute from "../domain/route/raw-route.ts";
 import Router from "../infrastructure/router/router.ts";
 import WebServer from "../infrastructure/server/web-server.ts";
@@ -18,8 +18,10 @@ export default class Pyjama {
   async run() {
     this.webServer = this.dependenciesContainer.server(this.options.port);
     for await (const serverRequest of this.webServer) {
-      const request = new Request(serverRequest.method, serverRequest.url);
-      const result = this.router.resolve(request).handler();
+      const matchingRoute = this.router.resolve(serverRequest);
+      const request = new Request(serverRequest, matchingRoute);
+
+      const result = request.handler();
       serverRequest.respond({ body: result });
     }
   }

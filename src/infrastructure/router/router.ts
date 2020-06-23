@@ -1,5 +1,6 @@
 import Route from "../../domain/route/route.ts";
-import Request from "../../domain/request.ts";
+import { ServerRequest } from "../../shared/deps.ts";
+import Request from "../../domain/request/request.ts";
 import RouteRegistry from "./route-registry.ts";
 import RawRoute from "../../domain/route/raw-route.ts";
 import RouteAlreadyExistsError from "../../domain/errors/route-already-exists-error.ts";
@@ -20,7 +21,7 @@ export default class Router {
     this.routeRegistry.register(new Route(rawRoute));
   }
 
-  resolve(request: Request): Route {
-    return this.routeRegistry.findMatchingRoute(request);
+  resolve(serverRequest: ServerRequest): Route {
+    return this.routeRegistry.findMatchingRoute(serverRequest);
   }
 }
