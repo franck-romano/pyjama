@@ -2,7 +2,7 @@ import { Options } from "../domain/Options.ts";
 import { RouteRegistry } from "../infrastructure/router/RouteRegistry.ts";
 import { Router } from "../infrastructure/router/Router.ts";
 import { HttpServer } from "../infrastructure/server/HttpServer.ts";
-import { RawRoute } from "../domain/route/Route.ts";
+import { Route, RouteOptions } from "../domain/route/Route.ts";
 
 export class Pyjama {
   private readonly router: Router;
@@ -29,13 +29,13 @@ export class Pyjama {
     this.webServer.stop();
   }
 
-  route(route: RawRoute): Pyjama {
-    this.router.add(route);
+  route(route: RouteOptions): Pyjama {
+    this.router.add(new Route(route));
     return this;
   }
 
-  routes(routes: Array<RawRoute>): Pyjama {
-    routes.forEach((route) => this.router.add(route));
+  routes(routes: Array<RouteOptions>): Pyjama {
+    routes.forEach((route) => this.router.add(new Route(route)));
     return this;
   }
 }

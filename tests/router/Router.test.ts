@@ -4,16 +4,17 @@ import { HttpMethod } from "../../src/domain/route/HttpMethod.ts";
 import { RouteRegistry } from "../../src/infrastructure/router/RouteRegistry.ts";
 import RouteAlreadyExistsError from "../../src/domain/errors/route-already-exists-error.ts";
 import BadRoutePathFormatError from "../../src/domain/errors/bad-route-path-format-error.ts";
+import { Route } from "../../src/domain/route/Route.ts";
 
 test("throws if the route path is not well formatted", () => {
   // GIVEN
-  const route = {
+  const route = new Route({
     httpMethod: HttpMethod.GET,
     path: "some_wrong_path",
     handler: () => {
       return "Some Data";
     },
-  };
+  });
   // WHEN
   const router = new Router(new RouteRegistry());
   // THEN
@@ -22,13 +23,13 @@ test("throws if the route path is not well formatted", () => {
 
 test("throws if the route already exists with the same path", () => {
   // GIVEN
-  const route = {
+  const route = new Route({
     httpMethod: HttpMethod.GET,
     path: "/foo",
     handler: () => {
       return "Some Data";
     },
-  };
+  });
   const router = new Router(new RouteRegistry());
   // WHEN
   router.add(route);
@@ -39,13 +40,13 @@ test("throws if the route already exists with the same path", () => {
 test("when the route does not exist for the given path", () => {
   test("properly register the route", () => {
     // GIVEN
-    const route = {
+    const route = new Route({
       httpMethod: HttpMethod.GET,
       path: "/foo",
       handler: () => {
         return "Some data";
       },
-    };
+    });
     const routeRegistry = new RouteRegistry();
     const router = new Router(routeRegistry);
 

@@ -2,7 +2,7 @@ import * as Regexp from "./UrlRegexp.ts";
 import { HttpMethod } from "./HttpMethod.ts";
 import { RouteHandler } from "./RouteHandler.ts";
 
-export interface RawRoute {
+export interface RouteOptions {
   httpMethod: HttpMethod;
   path: string;
   handler: RouteHandler;
@@ -11,20 +11,20 @@ export interface RawRoute {
 export class Route {
   private readonly pattern: RegExp;
 
-  constructor(private rawRoute: RawRoute) {
+  constructor(private options: RouteOptions) {
     this.pattern = this.buildRegexPatternFromPath();
   }
 
   get path(): string {
-    return this.rawRoute.path;
+    return this.options.path;
   }
 
   get httpMethod(): HttpMethod {
-    return this.rawRoute.httpMethod;
+    return this.options.httpMethod;
   }
 
   get handler(): RouteHandler {
-    return this.rawRoute.handler;
+    return this.options.handler;
   }
 
   get regExpPattern(): RegExp {
