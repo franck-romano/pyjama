@@ -1,6 +1,7 @@
 import Pyjama from "../index.ts";
 import { assertEquals, integrationTest } from "./dev-deps.ts";
 import { HttpMethod } from "../src/domain/route/HttpMethod.ts";
+import { Request } from "../src/domain/request/Request.ts";
 
 const routes = [{
   httpMethod: HttpMethod.GET,
@@ -11,8 +12,8 @@ const routes = [{
 }, {
   httpMethod: HttpMethod.GET,
   path: "/foo/:id",
-  handler: () => "Hello ID",
-  expected: "Hello ID",
+  handler: (req: Request) => `Hello from ${req.httpMethod} ${req.path}`,
+  expected: "Hello from GET /foo/some_id",
   url: "http://localhost:8080/foo/some_id",
 }];
 

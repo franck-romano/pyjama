@@ -8,7 +8,9 @@ test(".add() - adds a route to the registry", () => {
   const route = new Route({
     httpMethod: HttpMethod.DELETE,
     path: "/some-path",
-    handler: () => {},
+    handler: () => {
+      return "Some Data";
+    },
   });
   // WHEN
   const routeRegistry = new RouteRegistry();
@@ -22,7 +24,9 @@ test(".hasMatchingRoute() - returns false when no matching route found", () => {
   const rawRoute = {
     httpMethod: HttpMethod.DELETE,
     path: "/some-path",
-    handler: () => {},
+    handler: () => {
+      return "Some Data";
+    },
   };
 
   const routeRegistry = new RouteRegistry();
@@ -39,7 +43,9 @@ test(".hasMatchingRoute() - returns true when matching route found", () => {
   const rawRoute = {
     httpMethod: HttpMethod.DELETE,
     path: "/some-path",
-    handler: () => {},
+    handler: () => {
+      return "Some Data";
+    },
   };
 
   const route = new Route(rawRoute);

@@ -1,16 +1,20 @@
 import { ServerRequest } from "./ServerRequest.ts";
+import { HttpMethod } from "../route/HttpMethod.ts";
 
 export class Request {
+  private readonly _path;
+
   constructor(
-    private rawRequest: ServerRequest,
+    private req: ServerRequest,
   ) {
+    this._path = new URL(req.url).pathname;
   }
 
-  get httpMethod(): string {
-    return this.rawRequest.method;
+  get httpMethod(): HttpMethod {
+    return this.req.method as HttpMethod;
   }
 
   get path(): string {
-    return this.rawRequest.url;
+    return this._path;
   }
 }

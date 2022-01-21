@@ -6,7 +6,9 @@ import { HttpMethod } from "../src/domain/route/HttpMethod.ts";
   rawRoute: {
     httpMethod: HttpMethod.GET,
     path: "/foo/:id/bar/:id",
-    handler: () => {},
+    handler: () => {
+      return "Some Data";
+    },
   },
   input: "/foo/some-id/bar/some-other-id",
   expected: true,
@@ -15,7 +17,9 @@ import { HttpMethod } from "../src/domain/route/HttpMethod.ts";
   rawRoute: {
     httpMethod: HttpMethod.GET,
     path: "/foo/",
-    handler: () => {},
+    handler: () => {
+      return "Some Data";
+    },
   },
   input: "/foo/",
   expected: true,

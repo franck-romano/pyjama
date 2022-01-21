@@ -1,5 +1,6 @@
 import { Server } from "../../shared/deps.ts";
 import { Router } from "../router/Router.ts";
+import { Request } from "../../domain/request/Request.ts";
 
 export class HttpServer extends Server {
   private readonly listener: Deno.Listener;
@@ -11,8 +12,8 @@ export class HttpServer extends Server {
   ) {
     super({
       handler: (req) => {
-        const matchingRoute = this.router.resolve(req);
-        return new Response(matchingRoute.handler());
+        const route = this.router.resolve(req);
+        return new Response(route.handler(new Request(req)));
       },
     });
 

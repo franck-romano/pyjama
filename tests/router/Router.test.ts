@@ -11,6 +11,7 @@ test("throws if the route path is not well formatted", () => {
     httpMethod: HttpMethod.GET,
     path: "some_wrong_path",
     handler: () => {
+      return "Some Data";
     },
   };
   // WHEN
@@ -25,6 +26,7 @@ test("throws if the route already exists with the same path", () => {
     httpMethod: HttpMethod.GET,
     path: "/foo",
     handler: () => {
+      return "Some Data";
     },
   };
   const router = new Router(new RouteRegistry());
@@ -41,6 +43,7 @@ test("when the route does not exist for the given path", () => {
       httpMethod: HttpMethod.GET,
       path: "/foo",
       handler: () => {
+        return "Some data";
       },
     };
     const routeRegistry = new RouteRegistry();

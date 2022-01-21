@@ -1,11 +1,11 @@
 import * as Regexp from "./UrlRegexp.ts";
 import { HttpMethod } from "./HttpMethod.ts";
-import { Handler } from "../../shared/Handler.ts";
+import { RouteHandler } from "./RouteHandler.ts";
 
 export interface RawRoute {
   httpMethod: HttpMethod;
   path: string;
-  handler: Handler;
+  handler: RouteHandler;
 }
 
 export class Route {
@@ -23,7 +23,7 @@ export class Route {
     return this.rawRoute.httpMethod;
   }
 
-  get handler(): Handler {
+  get handler(): RouteHandler {
     return this.rawRoute.handler;
   }
 
