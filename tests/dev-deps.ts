@@ -7,14 +7,13 @@ export {
 
 const { test } = Deno;
 
-const integrationTest = (testName: string, testFn: Function) => {
+const integrationTest = (name: string, fn: () => void | Promise<void>) => {
   return test({
-    name: testName,
-    fn() {
-      testFn();
-    },
+    name,
+    fn,
     sanitizeOps: false,
+    sanitizeResources: false,
   });
 };
 
-export { test, integrationTest };
+export { integrationTest, test };

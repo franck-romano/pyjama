@@ -1,10 +1,10 @@
-import Route from "../src/domain/route/route.ts";
-import { test, assertEquals } from "./dev-deps.ts";
-import HTTPMethod from "../src/domain/route/http-method.ts";
+import { Route } from "../src/domain/route/Route.ts";
+import { assertEquals, test } from "./dev-deps.ts";
+import { HttpMethod } from "../src/domain/route/HttpMethod.ts";
 
 [{
   rawRoute: {
-    httpMethod: HTTPMethod.GET,
+    httpMethod: HttpMethod.GET,
     path: "/foo/:id/bar/:id",
     handler: () => {},
   },
@@ -13,7 +13,7 @@ import HTTPMethod from "../src/domain/route/http-method.ts";
   testName: "matches path params with ':' as delimiter",
 }, {
   rawRoute: {
-    httpMethod: HTTPMethod.GET,
+    httpMethod: HttpMethod.GET,
     path: "/foo/",
     handler: () => {},
   },

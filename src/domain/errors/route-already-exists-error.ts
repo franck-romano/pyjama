@@ -1,4 +1,4 @@
-import RawRoute from "../route/raw-route.ts";
+import { RawRoute } from "../route/Route.ts";
 
 export default class RouteAlreadyExistsError extends Error {
   constructor(rawRoute: RawRoute) {

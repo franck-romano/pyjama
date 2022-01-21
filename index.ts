@@ -1,7 +1,6 @@
-import { Options } from "./src/domain/options.ts";
-import Pyjama from "./src/application/pyjama.ts";
-import { dependenciesContainer } from "./src/shared/dependencies-container.ts";
+import { Options } from "./src/domain/Options.ts";
+import { Pyjama } from "./src/application/Pyjama.ts";
 
 export default function (options: Options) {
-  return new Pyjama(options, dependenciesContainer);
+  return new Pyjama(options);
 }
