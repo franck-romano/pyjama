@@ -1,3 +1,5 @@
+[![Build Main](https://github.com/franck-romano/pyjama/actions/workflows/main.yml/badge.svg)](https://github.com/franck-romano/pyjama/actions/workflows/main.yml)
+
 # pyjama
 
 Deno HTTP Framework
