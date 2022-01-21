@@ -1,15 +1,15 @@
 import { Options } from "../domain/Options.ts";
 import { RouteRegistry } from "../infrastructure/router/RouteRegistry.ts";
-import { Router } from "../infrastructure/router/Router.ts";
+import { InternalRouter } from "../infrastructure/router/InternalRouter.ts";
 import { HttpServer } from "../infrastructure/server/HttpServer.ts";
 import { Route, RouteOptions } from "../domain/route/Route.ts";
 
 export class Pyjama {
-  private readonly router: Router;
+  private readonly router: InternalRouter;
   private readonly webServer: HttpServer;
 
   constructor(private readonly options: Options) {
-    this.router = new Router(new RouteRegistry());
+    this.router = new InternalRouter(new RouteRegistry());
     this.webServer = new HttpServer(
       this.router,
       this.options.port,

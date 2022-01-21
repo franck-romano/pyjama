@@ -1,5 +1,5 @@
 import { assertNotEquals, assertThrows, test } from "../dev-deps.ts";
-import { Router } from "../../src/infrastructure/router/Router.ts";
+import { InternalRouter } from "../../src/infrastructure/router/InternalRouter.ts";
 import { HttpMethod } from "../../src/domain/route/HttpMethod.ts";
 import { RouteRegistry } from "../../src/infrastructure/router/RouteRegistry.ts";
 import RouteAlreadyExistsError from "../../src/domain/errors/route-already-exists-error.ts";
@@ -16,7 +16,7 @@ test("throws if the route path is not well formatted", () => {
     },
   });
   // WHEN
-  const router = new Router(new RouteRegistry());
+  const router = new InternalRouter(new RouteRegistry());
   // THEN
   assertThrows(() => router.add(route), BadRoutePathFormatError);
 });
@@ -30,7 +30,7 @@ test("throws if the route already exists with the same path", () => {
       return "Some Data";
     },
   });
-  const router = new Router(new RouteRegistry());
+  const router = new InternalRouter(new RouteRegistry());
   // WHEN
   router.add(route);
   // THEN
@@ -48,7 +48,7 @@ test("when the route does not exist for the given path", () => {
       },
     });
     const routeRegistry = new RouteRegistry();
-    const router = new Router(routeRegistry);
+    const router = new InternalRouter(routeRegistry);
 
     // WHEN
     router.add(route);

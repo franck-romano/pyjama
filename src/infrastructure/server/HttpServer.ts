@@ -1,6 +1,6 @@
 import { Server } from "../../shared/deps.ts";
-import { Router } from "../router/Router.ts";
 import { Request } from "../../domain/request/Request.ts";
+import { Router } from "../../domain/Router.ts";
 
 export class HttpServer extends Server {
   private readonly listener: Deno.Listener;

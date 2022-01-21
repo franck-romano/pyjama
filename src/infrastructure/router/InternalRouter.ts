@@ -3,8 +3,9 @@ import { RouteRegistry } from "./RouteRegistry.ts";
 import RouteAlreadyExistsError from "../../domain/errors/route-already-exists-error.ts";
 import BadRoutePathFormatError from "../../domain/errors/bad-route-path-format-error.ts";
 import { Request } from "../../domain/request/Request.ts";
+import { Router } from "../../domain/Router.ts";
 
-export class Router {
+export class InternalRouter implements Router {
   constructor(private routeRegistry: RouteRegistry) {
   }
 
