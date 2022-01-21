@@ -1,9 +1,9 @@
 import * as Regexp from "./UrlRegexp.ts";
-import { HttpMethod } from "./HttpMethod.ts";
+import { HTTPMethod } from "../HTTPMethod.ts";
 import { RouteHandler } from "./RouteHandler.ts";
 
 export interface RouteOptions {
-  httpMethod: HttpMethod;
+  method: HTTPMethod;
   path: string;
   handler: RouteHandler;
 }
@@ -19,8 +19,8 @@ export class Route {
     return this.options.path;
   }
 
-  get httpMethod(): HttpMethod {
-    return this.options.httpMethod;
+  get method(): HTTPMethod {
+    return this.options.method;
   }
 
   get handler(): RouteHandler {

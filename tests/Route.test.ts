@@ -1,10 +1,9 @@
-import { Route } from "../src/domain/route/Route.ts";
+import { Route, RouteOptions } from "../src/domain/route/Route.ts";
 import { assertEquals, test } from "./dev-deps.ts";
-import { HttpMethod } from "../src/domain/route/HttpMethod.ts";
 
 [{
   rawRoute: {
-    httpMethod: HttpMethod.GET,
+    method: "GET",
     path: "/foo/:id/bar/:id",
     handler: () => {
       return "Some Data";
@@ -15,7 +14,7 @@ import { HttpMethod } from "../src/domain/route/HttpMethod.ts";
   testName: "matches path params with ':' as delimiter",
 }, {
   rawRoute: {
-    httpMethod: HttpMethod.GET,
+    method: "GET",
     path: "/foo/",
     handler: () => {
       return "Some Data";
@@ -27,7 +26,7 @@ import { HttpMethod } from "../src/domain/route/HttpMethod.ts";
 }].forEach(({ testName, rawRoute, input, expected }) => {
   test(testName, () => {
     // WHEN
-    const route = new Route(rawRoute);
+    const route = new Route(rawRoute as RouteOptions);
     // THEN
     assertEquals(route.regExpPattern.test(input), expected);
   });

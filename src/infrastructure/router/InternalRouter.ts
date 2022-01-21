@@ -1,7 +1,7 @@
 import { Route } from "../../domain/route/Route.ts";
 import { RouteRegistry } from "./RouteRegistry.ts";
-import RouteAlreadyExistsError from "../../domain/errors/route-already-exists-error.ts";
-import BadRoutePathFormatError from "../../domain/errors/bad-route-path-format-error.ts";
+import RouteAlreadyExistsError from "../../domain/errors/RouteAlreadyExistsError.ts";
+import BadRoutePathFormatError from "../../domain/errors/BadRoutePathFormatError.ts";
 import { Request } from "../../domain/request/Request.ts";
 import { Router } from "../../domain/Router.ts";
 
@@ -14,7 +14,7 @@ export class InternalRouter implements Router {
       throw new BadRoutePathFormatError();
     }
 
-    if (this.routeRegistry.hasMatchingRoute(route)) {
+    if (this.routeRegistry.hasMatchingRoute(route.method, route.path)) {
       throw new RouteAlreadyExistsError(route);
     }
 

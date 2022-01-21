@@ -1,7 +1,7 @@
-import { Route, RouteOptions } from "../../domain/route/Route.ts";
-import RouteNotFoundForRequestError from "../../domain/errors/route-not-found-for-request-error.ts";
-import { ServerRequest } from "../../domain/request/ServerRequest.ts";
+import { Route } from "../../domain/route/Route.ts";
+import RouteNotFoundForRequestError from "../../domain/errors/RouteNotFoundForRequestError.ts";
 import { Request } from "../../domain/request/Request.ts";
+import { HTTPMethod } from "../../domain/HTTPMethod.ts";
 
 export class RouteRegistry extends Array<Route> {
   constructor() {
@@ -12,17 +12,17 @@ export class RouteRegistry extends Array<Route> {
     this.push(route);
   }
 
-  hasMatchingRoute(rawRoute: RouteOptions): boolean {
+  hasMatchingRoute(method: HTTPMethod, path: string): boolean {
     return this.findIndex((route) =>
-      rawRoute.httpMethod === route.httpMethod &&
-      route.regExpPattern.test(rawRoute.path)
+      method === route.method &&
+      route.regExpPattern.test(path)
     ) !== -1;
   }
 
-  findMatchingRoute(serverRequest: Request): Route {
+  findMatchingRoute(request: Request): Route {
     const route = this.find((route) => {
-      return route.httpMethod === serverRequest.method &&
-        route.regExpPattern.test(serverRequest.path);
+      return route.method === request.method &&
+        route.regExpPattern.test(request.path);
     });
 
     if (!route) {
