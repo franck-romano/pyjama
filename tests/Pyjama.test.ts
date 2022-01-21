@@ -12,7 +12,7 @@ const routes = [{
 }, {
   httpMethod: HttpMethod.GET,
   path: "/foo/:id",
-  handler: (req: Request) => `Hello from ${req.httpMethod} ${req.path}`,
+  handler: (req: Request) => `Hello from ${req.method} ${req.path}`,
   expected: "Hello from GET /foo/some_id",
   url: "http://localhost:8080/foo/some_id",
 }];

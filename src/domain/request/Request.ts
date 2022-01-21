@@ -10,7 +10,7 @@ export class Request {
     this._path = new URL(req.url).pathname;
   }
 
-  get httpMethod(): HttpMethod {
+  get method(): HttpMethod {
     return this.req.method as HttpMethod;
   }
 

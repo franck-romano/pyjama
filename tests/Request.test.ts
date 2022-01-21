@@ -9,9 +9,9 @@ test("Request.path() returns URI path", () => {
   assertEquals(b.path, "/foo");
 });
 
-test("Request.httpMethod() returns the right HTTP method", () => {
+test("Request.method() returns the right HTTP method", () => {
   // GIVEN
   const b = new PyjamaRequest(new Request("https://fake-url.com/foo"));
   // WHEN & THEN
-  assertEquals(b.httpMethod, HttpMethod.GET);
+  assertEquals(b.method, HttpMethod.GET);
 });

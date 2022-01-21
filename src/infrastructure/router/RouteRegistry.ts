@@ -1,6 +1,7 @@
 import { RawRoute, Route } from "../../domain/route/Route.ts";
 import RouteNotFoundForRequestError from "../../domain/errors/route-not-found-for-request-error.ts";
 import { ServerRequest } from "../../domain/request/ServerRequest.ts";
+import { Request } from "../../domain/request/Request.ts";
 
 export class RouteRegistry extends Array<Route> {
   constructor() {
@@ -20,9 +21,8 @@ export class RouteRegistry extends Array<Route> {
 
   findMatchingRoute(serverRequest: Request): Route {
     const route = this.find((route) => {
-      const path = new URL(serverRequest.url).pathname;
       return route.httpMethod === serverRequest.method &&
-        route.regExpPattern.test(path);
+        route.regExpPattern.test(serverRequest.path);
     });
 
     if (!route) {

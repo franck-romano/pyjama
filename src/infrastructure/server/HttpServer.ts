@@ -12,8 +12,10 @@ export class HttpServer extends Server {
   ) {
     super({
       handler: (req) => {
-        const route = this.router.resolve(req);
-        return new Response(route.handler(new Request(req)));
+        const request = new Request(req);
+        const route = this.router.resolve(request);
+        const result = route.handler(request);
+        return new Response(result);
       },
     });
 

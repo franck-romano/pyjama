@@ -3,6 +3,7 @@ import { RouteRegistry } from "./RouteRegistry.ts";
 import RouteAlreadyExistsError from "../../domain/errors/route-already-exists-error.ts";
 import BadRoutePathFormatError from "../../domain/errors/bad-route-path-format-error.ts";
 import { ServerRequest } from "../../domain/request/ServerRequest.ts";
+import { Request } from "../../domain/request/Request.ts";
 
 export class Router {
   constructor(private routeRegistry: RouteRegistry) {}
@@ -19,7 +20,7 @@ export class Router {
     this.routeRegistry.register(new Route(route));
   }
 
-  resolve(request: ServerRequest): Route {
+  resolve(request: Request): Route {
     return this.routeRegistry.findMatchingRoute(request);
   }
 }
